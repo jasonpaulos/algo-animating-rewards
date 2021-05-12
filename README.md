@@ -1,4 +1,4 @@
-# Ticking Rewards Demo
+# Algo Animating Rewards
 
 A demo of animating rewards for Algorand.
 
