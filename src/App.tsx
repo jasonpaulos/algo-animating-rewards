@@ -1,4 +1,6 @@
 import React from 'react';
+// @ts-ignore
+import AnimatedNumber from 'animated-number-react';
 import algosdk from 'algosdk';
 
 const client = new algosdk.Algodv2('', 'https://algoexplorerapi.io', '');
@@ -136,8 +138,13 @@ function App() {
         </p>
         <p>Balance: {accountInfo.balanceWithoutRewards/ALGO_TO_MICRO_ALGO} Algos</p>
         <p>Earned rewards: {accountInfo.earnedRewards/ALGO_TO_MICRO_ALGO} Algos</p>
-        <p>Pending rewards: {accountInfo.pendingRewards/ALGO_TO_MICRO_ALGO} Algos</p>
+        <p>Pending rewards (not animated): {(accountInfo.pendingRewards/ALGO_TO_MICRO_ALGO).toFixed(8)} Algos</p>
         <p>Estimated rounds until payout: {roundInfo.estimatedRoundsUntilPayout}</p>
+        <p key={addr}>All rewards (earned + pending, animated): <AnimatedNumber
+          value={(accountInfo.earnedRewards + accountInfo.pendingRewards)/ALGO_TO_MICRO_ALGO}
+          duration={5000} // it would be more accurate to calculate and use the average round time
+          formatValue={(value: number) => value.toFixed(8)}
+        /> Algos</p>
       </div>
     </div>
   );
